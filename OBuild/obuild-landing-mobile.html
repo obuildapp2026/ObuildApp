@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Obuild — Mobile</title>
+<meta name="description" content="Obuild bespaart bouw ZZP'ers tot €45.000 per jaar. Spreek je materialen in, wij picken ze sameday.">
+<meta property="og:title" content="Obuild — Stop met rijden. Begin met bouwen.">
+<meta property="og:description" content="Bouw ZZP'ers verliezen tot €45.000 per jaar aan operationele kosten. Obuild geeft je die tijd en marge terug.">
+<meta property="og:type" content="website">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Obuild">
+<meta name="theme-color" content="#1C1F23">
+<meta name="application-name" content="Obuild">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F7B500'/><circle cx='50' cy='50' r='30' fill='white'/></svg>">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+:root{--y:#F7B500;--dark:#1C1F23;--bg:#F2F0EB;--white:#fff;--muted:#8A8880;--line:#E0DDD6;--p:20px}
+body{background:var(--dark);color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+nav{position:sticky;top:0;z-index:100;background:var(--dark);padding:14px var(--p);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-ring{width:32px;height:32px;flex-shrink:0}
+.logo-text{font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:-0.02em}
+.logo-text span{color:var(--y)}
+.nav-btn{background:var(--y);color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-weight:700;font-size:0.8rem;padding:10px 18px;border:none;cursor:pointer;text-decoration:none;white-space:nowrap}
+.hero{padding:40px var(--p) 32px}
+.hero-tag{font-family:'Courier New',Courier,monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--y);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hero-tag::before{content:'';width:24px;height:1px;background:var(--y)}
+.hero h1{font-size:2.4rem;font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:var(--y)}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:28px}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:28px}
+.stat{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);padding:12px 8px;text-align:center}
+.stat-val{font-size:1.1rem;font-weight:800;color:var(--y);line-height:1;margin-bottom:4px}
+.stat-lbl{font-family:'Courier New',Courier,monospace;font-size:0.5rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);line-height:1.4}
+.form-wrap{background:var(--white);padding:24px var(--p)}
+.form-title{font-size:1.3rem;font-weight:800;color:var(--dark);margin-bottom:4px}
+.form-sub{font-family:'Courier New',Courier,monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.form-group{margin-bottom:12px}
+.form-label{font-family:'Courier New',Courier,monospace;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px}
+.form-input,.form-select{width:100%;padding:13px 14px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:1rem;font-weight:500;color:var(--dark);background:var(--bg);border:1.5px solid var(--line);outline:none;-webkit-appearance:none;appearance:none;border-radius:0}
+.form-input:focus,.form-select:focus{border-color:var(--y);background:#fff}
+.form-select{background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238A8880' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.privacy-check{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
+.privacy-check input{width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:var(--dark);cursor:pointer}
+.privacy-check span{font-size:0.72rem;color:var(--muted);line-height:1.5}
+.privacy-check a{color:var(--dark)}
+.form-submit{width:100%;padding:16px;background:var(--dark);color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:1rem;font-weight:700;border:none;cursor:pointer;margin-bottom:12px}
+.form-submit:disabled{opacity:0.6}
+.form-fine{font-family:'Courier New',Courier,monospace;font-size:0.55rem;color:var(--muted);text-align:center;line-height:1.7}
+.form-success{display:none;flex-direction:column;align-items:center;text-align:center;padding:32px 0;gap:12px}
+.success-icon{width:56px;height:56px;background:var(--y);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.success-title{font-size:1.3rem;font-weight:800;color:var(--dark)}
+.success-sub{font-family:'Courier New',Courier,monospace;font-size:0.62rem;color:var(--muted);line-height:1.8}
+.section{padding:40px var(--p)}
+.section-light{background:var(--bg);color:var(--dark)}
+.section-dark{background:var(--dark);color:#fff}
+.section-alt{background:#111518;color:#fff}
+.section-white{background:var(--white);color:var(--dark)}
+.section-tag{font-family:'Courier New',Courier,monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-tag::before{content:'';width:20px;height:1px;background:var(--y)}
+.section-dark .section-tag,.section-alt .section-tag{color:rgba(255,255,255,0.3)}
+.section h2{font-size:1.9rem;font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px}
+.step{background:var(--white);padding:18px;margin-bottom:8px;display:flex;gap:14px;align-items:flex-start}
+.step-num{font-family:'Courier New',Courier,monospace;font-size:0.6rem;color:var(--y);background:var(--dark);padding:3px 7px;font-weight:500;flex-shrink:0;margin-top:3px}
+.step-icon{font-size:1.4rem;flex-shrink:0}
+.step-title{font-size:0.95rem;font-weight:700;color:var(--dark);margin-bottom:3px}
+.step-desc{font-size:0.82rem;color:var(--muted);line-height:1.5}
+.advantage{padding:20px;margin-bottom:8px}
+.adv-dark{background:var(--dark)}
+.adv-yellow{background:var(--y)}
+.adv-icon{font-size:1.8rem;margin-bottom:10px;display:block}
+.adv-title{font-size:1rem;font-weight:800;margin-bottom:6px}
+.adv-dark .adv-title{color:#fff}
+.adv-yellow .adv-title{color:var(--dark)}
+.adv-desc{font-size:0.83rem;line-height:1.6}
+.adv-dark .adv-desc{color:rgba(255,255,255,0.5)}
+.adv-yellow .adv-desc{color:rgba(28,31,35,0.65)}
+.pain-num{font-size:2.5rem;font-weight:800;color:var(--y);line-height:1;margin-bottom:4px}
+.pain-lbl{font-family:'Courier New',Courier,monospace;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px}
+.pain-desc{font-size:0.83rem;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.pain-list{list-style:none}
+.pain-list li{font-size:0.88rem;color:rgba(255,255,255,0.6);padding:12px 0 12px 20px;border-bottom:1px solid rgba(255,255,255,0.06);position:relative;line-height:1.5}
+.pain-list li::before{content:'→';position:absolute;left:0;color:var(--y);font-size:0.8rem}
+.trade-grid{display:flex;flex-wrap:wrap;gap:8px}
+.trade-tag{font-family:'Courier New',Courier,monospace;font-size:0.68rem;padding:8px 12px;background:var(--white);border:1.5px solid var(--line);color:var(--dark);display:flex;align-items:center;gap:6px}
+.cta-section{padding:40px var(--p);background:var(--y);text-align:center}
+.cta-section h2{font-size:2rem;font-weight:800;color:var(--dark);line-height:1.05;letter-spacing:-0.02em;margin-bottom:8px}
+.cta-section p{font-family:'Courier New',Courier,monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(28,31,35,0.5);margin-bottom:20px}
+.cta-btn{display:block;background:var(--dark);color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-weight:700;font-size:1rem;padding:16px;text-decoration:none;cursor:pointer;border:none;width:100%;text-align:center}
+footer{background:var(--dark);padding:24px var(--p);border-top:1px solid rgba(255,255,255,0.06)}
+.footer-logo{font-size:1.2rem;font-weight:800;color:var(--y);margin-bottom:10px}
+.footer-logo span{color:rgba(255,255,255,0.7)}
+.footer-note{font-family:'Courier New',Courier,monospace;font-size:0.55rem;color:rgba(255,255,255,0.2);letter-spacing:0.05em;line-height:2}
+/* ── TABLET ── */
+@media(min-width:768px){
+  :root{--p:48px}
+  .hero h1{font-size:3rem}
+  .steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .step{margin-bottom:0}
+  .adv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .advantage{margin-bottom:0}
+  .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:32px}
+  .pain-desc{border-bottom:none;padding-bottom:0;margin-bottom:0}
+  .cta-btn{width:auto;padding:16px 40px;display:inline-block}
+  .section h2{font-size:2.5rem}
+}
+
+
+  .hero h1{ font-size:4.5rem; }
+  .section h2{ font-size:3.5rem; }
+  .cta-section h2{ font-size:3.5rem; }
+}
+
+/* Samsung Flip / narrow tall screens (max-width: 400px) */
+@media (max-width: 400px) {
+  :root { --p: 16px; }
+  .hero h1 { font-size: 1.9rem; }
+  .hero-sub { font-size: 0.9rem; }
+  .stats-row { grid-template-columns: 1fr 1fr 1fr; gap: 4px; }
+  .stat-val { font-size: 1rem; }
+  .stat-lbl { font-size: 0.45rem; letter-spacing: 0.05em; }
+  .hero { padding: 32px var(--p) 24px; }
+  .form-title { font-size: 1.1rem; }
+  .form-input, .form-select { padding: 12px; font-size: 0.95rem; }
+  .form-submit { font-size: 0.9rem; padding: 14px; }
+  .section h2 { font-size: 1.6rem; }
+  .step-title { font-size: 0.9rem; }
+  .step-desc { font-size: 0.78rem; }
+  .adv-title { font-size: 0.95rem; }
+  .adv-desc { font-size: 0.78rem; }
+  .pain-num { font-size: 2rem; }
+  .pain-list li { font-size: 0.82rem; }
+  .cta-section h2 { font-size: 1.7rem; }
+  .cta-btn { font-size: 0.9rem; padding: 14px; }
+  nav { padding: 12px var(--p); }
+  .logo-text { font-size: 1.1rem; }
+  .nav-btn { font-size: 0.72rem; padding: 9px 14px; }
+  .section { padding: 32px var(--p); }
+  .trade-tag { font-size: 0.62rem; padding: 7px 10px; }
+  .advantage { padding: 16px; }
+  .step { padding: 14px; gap: 10px; }
+}
+
+/* Very narrow (Galaxy Flip inner screen ~260px) */
+@media (max-width: 280px) {
+  :root { --p: 12px; }
+  .hero h1 { font-size: 1.6rem; }
+  .stats-row { grid-template-columns: 1fr 1fr; gap: 4px; }
+  .stat:last-child { grid-column: span 2; }
+  .section h2 { font-size: 1.4rem; }
+  .logo-ring { width: 26px; height: 26px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <svg class="logo-ring" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="46" fill="#F7B500"/>
+      <circle cx="50" cy="50" r="28" fill="white"/>
+      <rect x="44" y="4" width="12" height="20" fill="#1C1F23"/>
+      <rect x="44" y="76" width="12" height="20" fill="#1C1F23"/>
+      <rect x="4" y="44" width="20" height="12" fill="#1C1F23"/>
+      <rect x="76" y="44" width="20" height="12" fill="#1C1F23"/>
+      <path d="M36 63 L58 41" stroke="#1C1F23" stroke-width="7" stroke-linecap="round"/>
+      <path d="M46 41 L58 41 L58 53" stroke="#1C1F23" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <span class="logo-text"><span>o</span>build</span>
+  </a>
+  <a href="#aanmelden" class="nav-btn">Aanmelden</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Voor ZZP'ers in de bouw</div>
+      <h1>Je verliest<br><em>tot €45.000</em><br>per jaar.</h1>
+      <p class="hero-sub">Elke euro aan operationele kosten eet direct je marge op. Obuild regelt het — spreek in, wij picken, jij haalt op. Sameday, groothandelsprijs.</p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">€45K</div><div class="stat-lbl">Verlies per jaar</div></div>
+        <div class="stat"><div class="stat-val">5 min</div><div class="stat-lbl">Offerte ter plekke</div></div>
+        <div class="stat"><div class="stat-val">25%</div><div class="stat-lbl">Goedkoper</div></div>
+      </div>
+    </div>
+
+    <div id="aanmelden" class="form-wrap">
+      <div id="form-body">
+        <div class="form-title">Meld je gratis aan</div>
+        <div class="form-sub">Early access · Beperkte plekken</div>
+        <form name="obuild-aanmelding" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="form-name" value="obuild-aanmelding"/>
+          <p style="display:none"><input name="bot-field"/></p>
+          <div class="form-group"><label class="form-label">Naam</label><input type="text" name="naam" class="form-input" placeholder="Jan de Vries" required/></div>
+          <div class="form-group"><label class="form-label">Beroep</label>
+            <select name="beroep" class="form-select" required>
+              <option value="" disabled selected>Kies je beroep</option>
+              <option>Timmerman</option><option>Loodgieter</option><option>Elektricien</option>
+              <option>Stucadoor</option><option>Metselaar</option><option>Glaszetter</option>
+              <option>Dakdekker</option><option>Schilder</option><option>CV-monteur</option>
+              <option>Tegelzetter</option><option>Ventilatiemonteur</option>
+              <option>Kunststof kozijnen monteur</option><option>Anders</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Telefoon</label><input type="tel" name="telefoon" class="form-input" placeholder="+31 6 12345678" required/></div>
+          <div class="form-group"><label class="form-label">E-mail</label><input type="email" name="email" class="form-input" placeholder="jan@bedrijf.nl" required/></div>
+          <div class="form-group"><label class="form-label">Stad / regio</label><input type="text" name="locatie" class="form-input" placeholder="Amsterdam" required/></div>
+          <div class="privacy-check">
+            <input type="checkbox" name="privacy" required>
+            <span>Ik ga akkoord met de <a href="#privacy-info">privacyverklaring</a>. Mijn gegevens worden nooit gedeeld met derden.</span>
+          </div>
+          <button type="submit" class="form-submit" id="f-btn">Aanmelden voor early access →</button>
+          <div class="form-fine">Gratis · Geen app vereist · GDPR-compliant · SSL beveiligd</div>
+        </form>
+      </div>
+      <div class="form-success" id="form-success">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Je staat op de lijst!</div>
+        <div class="success-sub">We nemen contact op zodra<br>Obuild live gaat in jouw regio.<br><br>ORDER · PICK · DELIVER · BUILD</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section section-light">
+  <div class="section-tag">Hoe het werkt</div>
+  <h2>Vier stappen.<br>Geen gedoe.</h2>
+  <div class="steps-grid">
+    <div class="step"><span class="step-num">01</span><span class="step-icon">🎙️</span><div><div class="step-title">Spreek in</div><div class="step-desc">Open de app en spreek je materiaallijst in. Geen typen, geen zoeken.</div></div></div>
+    <div class="step"><span class="step-num">02</span><span class="step-icon">🔍</span><div><div class="step-title">Wij zoeken</div><div class="step-desc">Obuild zoekt jouw materialen bij de beste groothandels op groothandelsprijzen.</div></div></div>
+    <div class="step"><span class="step-num">03</span><span class="step-icon">📦</span><div><div class="step-title">Gepickt</div><div class="step-desc">Jouw bestelling wordt sameday gepickt bij een pickup punt bij jou in de buurt.</div></div></div>
+    <div class="step"><span class="step-num">04</span><span class="step-icon">🔨</span><div><div class="step-title">Jij bouwt</div><div class="step-desc">Ophalen op de route naar de klus. Geen omrijden, geen wachtrij, geen gedoe.</div></div></div>
+  </div>
+</div>
+
+<div class="section section-dark">
+  <div class="section-tag">Jouw voordeel</div>
+  <h2>Meer tijd.<br>Scherper geprijsd.<br>Sneller dan je concurrent.</h2>
+  <div class="adv-grid">
+    <div class="advantage adv-dark"><span class="adv-icon">⚡</span><div class="adv-title">Offerte in 5 minuten</div><div class="adv-desc">Foto van de ruimte → AI berekent materialen → arbeidsuren toevoegen → offerte klaar. Terwijl je concurrent nog rekent, heb jij al getekend.</div></div>
+    <div class="advantage adv-yellow"><span class="adv-icon">💰</span><div class="adv-title">25% lagere operationele kosten</div><div class="adv-desc">Obuild bundelt het volume van honderden vakmensen. Lagere kosten = scherpere offertes = meer gewonnen opdrachten.</div></div>
+    <div class="advantage adv-dark"><span class="adv-icon">🔨</span><div class="adv-title">Meer tijd voor klanten</div><div class="adv-desc">5 uur per week teruggewonnen = 230 extra declarabele uren per jaar. Bij €60/uur: €13.800 meer omzet — zonder harder te werken.</div></div>
+  </div>
+</div>
+
+<div class="section section-alt">
+  <div class="section-tag">Het probleem</div>
+  <h2>Jij werkt hard.<br>Maar een derde van je tijd werk je gratis.</h2>
+  <div class="pain-grid">
+    <div><div class="pain-num">€30K–€45K</div><div class="pain-lbl">Verlies per vakman per jaar</div><div class="pain-desc">Operationele kosten die niemand bijhoudt maar iedereen betaalt.</div></div>
+    <div><div class="pain-num">240u</div><div class="pain-lbl">Per jaar verspild — 6 werkweken</div><div class="pain-desc">Tijd die je niet declareert maar wel betaalt uit je eigen marge.</div></div>
+  </div>
+  <ul class="pain-list">
+    <li>Te hoge operationele kosten vreten elke dag aan je marge</li>
+    <li>Je concurrent heeft lagere kosten en biedt scherper aan — jij verliest de opdracht</li>
+    <li>Offertes maken kost uren terwijl de klant voor je staat</li>
+    <li>Elke uur aan overhead is een uur minder bij je klant</li>
+    <li>Jij werkt harder dan je concurrent maar verdient minder</li>
+  </ul>
+</div>
+
+<div class="section section-light">
+  <div class="section-tag">Voor wie</div>
+  <h2>Voor elke vakman<br>op de bouwplaats.</h2>
+  <div class="trade-grid">
+    <span class="trade-tag">🔨 Timmerman</span>
+    <span class="trade-tag">🔧 Loodgieter</span>
+    <span class="trade-tag">⚡ Elektricien</span>
+    <span class="trade-tag">🏠 Stucadoor</span>
+    <span class="trade-tag">🧱 Metselaar</span>
+    <span class="trade-tag">🪟 Glaszetter</span>
+    <span class="trade-tag">🏗️ Dakdekker</span>
+    <span class="trade-tag">🖌️ Schilder</span>
+    <span class="trade-tag">🔥 CV-monteur</span>
+    <span class="trade-tag">🟦 Tegelzetter</span>
+    <span class="trade-tag">💨 Ventilatiemonteur</span>
+    <span class="trade-tag">🪟 Kozijnen monteur</span>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Sneller offerte.<br>Goedkoper ingekocht.<br>Meer tijd voor je klant.</h2>
+  <p>Gratis aanmelden · Early access · Beperkte plekken</p>
+  <a href="#aanmelden" class="cta-btn">Meld je aan en win tijd terug →</a>
+</div>
+
+<footer>
+  <div class="footer-logo">o<span>build</span></div>
+  <div class="footer-note">
+    © 2026 Obuild · Order · Pick · Deliver · Build<br>
+    <span id="privacy-info">Obuild verwerkt je gegevens conform de AVG/GDPR. Je data wordt opgeslagen op beveiligde Europese servers en nooit gedeeld met derden. Vragen: info@obuild.app</span>
+  </div>
+</footer>
+
+<script>
+function handleSubmit(e){
+  e.preventDefault();
+  var btn=document.getElementById('f-btn');
+  btn.textContent='Aanmelden...';
+  btn.disabled=true;
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(e.target)).toString()})
+  .then(function(){
+    document.getElementById('form-body').style.display='none';
+    var s=document.getElementById('form-success');
+    s.style.display='flex';
+  })
+  .catch(function(){
+    btn.textContent='Aanmelden voor early access →';
+    btn.disabled=false;
+    alert('Er ging iets mis. Probeer het opnieuw.');
+  });
+}
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js')
+      .then(function(reg) { console.log('SW registered'); })
+      .catch(function(err) { console.log('SW failed:', err); });
+  });
+}
+</script>
+</body>
+</html>
