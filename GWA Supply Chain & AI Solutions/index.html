@@ -10,10 +10,13 @@
 <meta property="og:description" content="Wij verbinden alle schakels in uw keten. Doe de gratis supply chain quickscan."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://www.gwasupplychainsolutions.nl"/>
-<meta property="og:image" content="https://www.gwasupplychainsolutions.nl/og-image.png"/>
+<meta property="og:image" content="https://obuildapp2026.github.io/gwa-website/og-image.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="GWA Supply Chain Solutions"/>
 <meta name="twitter:description" content="Wij verbinden alle schakels in uw keten."/>
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <link rel="canonical" href="https://www.gwasupplychainsolutions.nl"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
 <style>
@@ -59,7 +62,7 @@ body{
 /* ─── NAV ─── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:0 6%;
+  padding:0 max(6%, calc((100% - 1280px) / 2));
   height:72px;
   display:flex;align-items:center;justify-content:space-between;
   background:rgba(6,15,30,0.85);
@@ -115,12 +118,13 @@ nav{
 
 /* ─── SECTIONS WRAPPER ─── */
 section{position:relative;z-index:1;}
+  .section-wrap{max-width:1280px;margin:0 auto;width:100%;}
 
 /* ─── HERO ─── */
 #hero{
   min-height:100vh;
   display:flex;align-items:center;
-  padding:120px 6% 80px;
+  padding:120px 6% 80px; max-width:1400px; margin:0 auto;
   position:relative;
   overflow:hidden;
 }
@@ -255,7 +259,8 @@ h1 .accent{
 
 /* ─── DIENSTEN ─── */
 #diensten{
-  padding:100px 6%;
+  padding:100px max(6%, calc((100% - 1280px) / 2));
+  
   background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%);
 }
 
@@ -343,7 +348,8 @@ h2{
 
 /* ─── HOE WE WERKEN ─── */
 #aanpak{
-  padding:100px 6%;
+  padding:100px max(6%, calc((100% - 1280px) / 2));
+  
   background:var(--navy2);
 }
 
@@ -401,7 +407,8 @@ h2{
 
 /* ─── OVER GWA ─── */
 #over{
-  padding:100px 6%;
+  padding:100px max(6%, calc((100% - 1280px) / 2));
+  
   background:var(--navy);
 }
 
@@ -491,7 +498,8 @@ h2{
 
 /* ─── QUICKSCAN SECTION ─── */
 #quickscan{
-  padding:100px 6%;
+  padding:100px max(6%, calc((100% - 1280px) / 2));
+  
   background:linear-gradient(180deg,var(--navy2) 0%,var(--navy) 100%);
 }
 
@@ -647,7 +655,8 @@ h2{
 
 /* ─── CONTACT ─── */
 #contact{
-  padding:100px 6%;
+  padding:100px max(6%, calc((100% - 1280px) / 2));
+  
   background:var(--navy2);
 }
 
@@ -702,7 +711,7 @@ h2{
 footer{
   background:var(--navy);
   border-top:1px solid var(--border2);
-  padding:48px 6% 36px;
+  padding:48px max(6%, calc((100% - 1280px) / 2)) 36px;
 }
 .footer-top{
   display:flex;justify-content:space-between;
@@ -727,6 +736,13 @@ footer{
   from{opacity:0;transform:translateY(-20px);}
   to{opacity:1;transform:translateY(0);}
 }
+
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
 
 .reveal{
   opacity:0;transform:translateY(32px);
@@ -799,8 +815,9 @@ footer{
     </div>
     <div class="hero-stats">
       <div class="stat-item"><div class="stat-num">15+</div><div class="stat-label">Jaar ervaring</div></div>
-      <div class="stat-item"><div class="stat-num">200+</div><div class="stat-label">Projecten</div></div>
-      <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">Tevreden klanten</div></div>
+      <div class="stat-item"><div class="stat-num">CPIM</div><div class="stat-label">APICS gecertificeerd supply chain expert</div></div>
+      <div class="stat-item"><div class="stat-num">360°</div><div class="stat-label">Operationeel · Tactisch · Strategisch</div></div>
+      <div class="stat-item"><div class="stat-num">AI</div><div class="stat-label">Expert</div></div>
     </div>
   </div>
 
