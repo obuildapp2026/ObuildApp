@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Obuild — Korte vragenlijst</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--y:#F7B500;--dark:#1C1F23;--bg:#F2F0EB;--white:#fff;--muted:#8A8880;--line:#E0DDD6}
+body{background:var(--bg);color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px;line-height:1.5;min-height:100vh}
+
+/* NAV */
+nav{background:var(--dark);padding:14px 20px;display:flex;align-items:center;gap:12px}
+nav img{height:32px;width:auto}
+
+/* HERO */
+.hero{background:var(--dark);padding:32px 20px;text-align:center}
+.hero h1{font-size:1.6rem;font-weight:800;color:#fff;line-height:1.1;margin-bottom:8px}
+.hero h1 em{font-style:normal;color:var(--y)}
+.hero p{font-size:0.9rem;color:rgba(255,255,255,0.5);line-height:1.6}
+
+/* FORM */
+.form-wrap{padding:24px 20px;max-width:600px;margin:0 auto}
+
+.step{display:none}
+.step.active{display:block}
+
+.step-num{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.step-q{font-size:1.1rem;font-weight:700;color:var(--dark);margin-bottom:20px;line-height:1.4}
+
+/* Options */
+.options{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.option{background:var(--white);border:1.5px solid var(--line);padding:14px 16px;cursor:pointer;font-size:0.95rem;font-weight:500;color:var(--dark);text-align:left;transition:all .15s;border-radius:0}
+.option:hover,.option.selected{border-color:var(--y);background:#fffdf0}
+.option.selected{font-weight:700}
+
+/* Text input */
+.text-input{width:100%;padding:14px;border:1.5px solid var(--line);font-size:0.95rem;color:var(--dark);background:var(--white);outline:none;font-family:inherit;margin-bottom:24px}
+.text-input:focus{border-color:var(--y)}
+
+/* Buttons */
+.btn-next{width:100%;padding:16px;background:var(--dark);color:#fff;font-size:1rem;font-weight:700;border:none;cursor:pointer;margin-bottom:8px}
+.btn-next:hover{background:#2a2f35}
+.btn-next:disabled{opacity:0.5;cursor:not-allowed}
+.btn-back{width:100%;padding:12px;background:transparent;color:var(--muted);font-size:0.9rem;border:none;cursor:pointer}
+
+/* Progress */
+.progress{height:4px;background:var(--line);margin:0 20px 0}
+.progress-fill{height:100%;background:var(--y);transition:width .3s}
+
+/* Result screens */
+.result-yes,.result-no{display:none;padding:32px 20px;max-width:600px;margin:0 auto;text-align:center}
+.result-icon{font-size:3rem;margin-bottom:16px}
+.result-title{font-size:1.4rem;font-weight:800;color:var(--dark);margin-bottom:12px}
+.result-text{font-size:0.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+
+/* Signup form */
+.signup-form{background:var(--white);padding:24px;border:1.5px solid var(--line);text-align:left}
+.signup-title{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:16px}
+.field{margin-bottom:12px}
+.field label{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+.field input,.field select{width:100%;padding:12px;border:1.5px solid var(--line);font-size:0.95rem;color:var(--dark);background:var(--bg);outline:none;font-family:inherit;-webkit-appearance:none;appearance:none}
+.field input:focus,.field select:focus{border-color:var(--y);background:#fff}
+.btn-signup{width:100%;padding:16px;background:var(--y);color:var(--dark);font-size:1rem;font-weight:700;border:none;cursor:pointer;margin-top:8px}
+.fine{font-size:0.65rem;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6}
+
+/* Success */
+.success{display:none;padding:48px 20px;text-align:center}
+.success-icon{width:64px;height:64px;background:var(--y);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px}
+.success-title{font-size:1.4rem;font-weight:800;color:var(--dark);margin-bottom:8px}
+.success-sub{font-size:0.85rem;color:var(--muted);line-height:1.7}
+</style>
+</head>
+<body>
+
+<nav>
+  <img src="https://obuildapp2026.github.io/ObuildApp/OBuild/Index.html" alt="Obuild" onerror="this.style.display='none'">
+  <span style="font-size:1.2rem;font-weight:800;color:#fff">o<span style="color:#F7B500">build</span></span>
+</nav>
+
+<div class="hero">
+  <h1>Herken jij dit<br><em>als vakman?</em></h1>
+  <p>5 korte vragen — 2 minuten<br>En misschien een mooie kans voor jou</p>
+</div>
+
+<div class="progress"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+<div class="form-wrap">
+
+  <!-- Stap 1 -->
+  <div class="step active" id="step-1">
+    <div class="step-num">Vraag 1 van 5</div>
+    <div class="step-q">Hoeveel uur per week ben je gemiddeld kwijt aan het halen van materialen?</div>
+    <div class="options">
+      <button class="option" onclick="select(this,'s1')">Minder dan 2 uur</button>
+      <button class="option" onclick="select(this,'s1')">2 tot 4 uur</button>
+      <button class="option" onclick="select(this,'s1')">4 tot 6 uur</button>
+      <button class="option" onclick="select(this,'s1')">Meer dan 6 uur</button>
+    </div>
+    <button class="btn-next" id="next-1" disabled onclick="nextStep(2)">Volgende →</button>
+  </div>
+
+  <!-- Stap 2 -->
+  <div class="step" id="step-2">
+    <div class="step-num">Vraag 2 van 5</div>
+    <div class="step-q">Waar haal je je materialen meestal op?</div>
+    <div class="options">
+      <button class="option" onclick="select(this,'s2')">Bouwmarkt (Gamma, Praxis, etc.)</button>
+      <button class="option" onclick="select(this,'s2')">Groothandel</button>
+      <button class="option" onclick="select(this,'s2')">Beide</button>
+      <button class="option" onclick="select(this,'s2')">Wisselend per klus</button>
+    </div>
+    <button class="btn-next" id="next-2" disabled onclick="nextStep(3)">Volgende →</button>
+    <button class="btn-back" onclick="nextStep(1)">← Terug</button>
+  </div>
+
+  <!-- Stap 3 -->
+  <div class="step" id="step-3">
+    <div class="step-num">Vraag 3 van 5</div>
+    <div class="step-q">Wat betaal je gemiddeld per week aan materialen?</div>
+    <div class="options">
+      <button class="option" onclick="select(this,'s3')">Minder dan €250</button>
+      <button class="option" onclick="select(this,'s3')">€250 tot €500</button>
+      <button class="option" onclick="select(this,'s3')">€500 tot €1.000</button>
+      <button class="option" onclick="select(this,'s3')">Meer dan €1.000</button>
+    </div>
+    <button class="btn-next" id="next-3" disabled onclick="nextStep(4)">Volgende →</button>
+    <button class="btn-back" onclick="nextStep(2)">← Terug</button>
+  </div>
+
+  <!-- Stap 4 -->
+  <div class="step" id="step-4">
+    <div class="step-num">Vraag 4 van 5</div>
+    <div class="step-q">Wat irriteert je het meest aan het inkoopproces?</div>
+    <div class="options">
+      <button class="option" onclick="select(this,'s4')">Tijd kwijt aan rijden en zoeken</button>
+      <button class="option" onclick="select(this,'s4')">Te hoge prijzen zonder korting</button>
+      <button class="option" onclick="select(this,'s4')">Verkeerde artikelen, extra ritten</button>
+      <button class="option" onclick="select(this,'s4')">Geen tijd voor offerte en factuur</button>
+    </div>
+    <button class="btn-next" id="next-4" disabled onclick="nextStep(5)">Volgende →</button>
+    <button class="btn-back" onclick="nextStep(3)">← Terug</button>
+  </div>
+
+  <!-- Stap 5 -->
+  <div class="step" id="step-5">
+    <div class="step-num">Vraag 5 van 5</div>
+    <div class="step-q">Zou je een app gebruiken waarmee je materialen inspreekt of fotografeert, wij zorgen voor het picken en jij haalt ze sameday op tegen groothandelsprijzen?</div>
+    <div class="options">
+      <button class="option" onclick="selectFinal(this, true)">Ja, dit zou ik zeker gebruiken</button>
+      <button class="option" onclick="selectFinal(this, true)">Ja, ik ben geïnteresseerd</button>
+      <button class="option" onclick="selectFinal(this, false)">Misschien, ik wil meer weten</button>
+      <button class="option" onclick="selectFinal(this, false)">Nee, niet voor mij</button>
+    </div>
+    <button class="btn-next" id="next-5" disabled onclick="showResult()">Bekijk resultaat →</button>
+    <button class="btn-back" onclick="nextStep(4)">← Terug</button>
+  </div>
+
+</div>
+
+<!-- RESULTAAT JA -->
+<div class="result-yes" id="result-yes">
+  <div class="result-icon">💪</div>
+  <div class="result-title">Jij begrijpt het!</div>
+  <div class="result-text">
+    Wij zijn <strong>Obuild</strong> — en we bouwen precies dat.<br><br>
+    Je bestelt via spraak of foto, wij dragen zorg voor het picken van de materialen en jij haalt ze sameday op bij een pickup punt bij jou in de buurt.<br><br>
+    En het wordt alleen maar beter: <strong>des te meer vakmensen zich aansluiten, des te groter de korting voor iedereen.</strong> Jij profiteert dus direct van elke nieuwe vakman die meedoet.
+  </div>
+
+  <div class="signup-form">
+    <div class="signup-title">🎯 Doe mee als eerste betatester</div>
+    <form name="obuild-betatester" method="POST" data-netlify="true" onsubmit="handleSignup(event)">
+      <input type="hidden" name="form-name" value="obuild-betatester"/>
+      <input type="hidden" name="uren-per-week" id="h-s1">
+      <input type="hidden" name="inkoop-locatie" id="h-s2">
+      <input type="hidden" name="materiaalkosten-week" id="h-s3">
+      <input type="hidden" name="grootste-irritatie" id="h-s4">
+      <input type="hidden" name="wil-obuild-gebruiken" id="h-s5">
+      <div class="field"><label>Naam</label><input type="text" name="naam" placeholder="Jan de Vries" required></div>
+      <div class="field"><label>Beroep</label>
+        <select name="beroep" required>
+          <option value="" disabled selected>Kies je beroep</option>
+          <option>Stucadoor</option><option>Timmerman</option><option>Loodgieter</option>
+          <option>Elektricien</option><option>Metselaar</option><option>Glaszetter</option>
+          <option>Dakdekker</option><option>Schilder</option><option>CV-monteur</option>
+          <option>Tegelzetter</option><option>Ventilatiemonteur</option>
+          <option>Kunststof kozijnen monteur</option><option>Vloerlegger</option>
+          <option>Isolatiemonteur</option><option>Zonnepaneleninstallateur</option>
+          <option>Stratenmaker</option><option>Anders</option>
+        </select>
+      </div>
+      <div class="field"><label>Telefoonnummer</label><input type="tel" name="telefoon" placeholder="+31 6 12345678" required></div>
+      <div class="field"><label>E-mailadres</label><input type="email" name="email" placeholder="jan@bedrijf.nl" required></div>
+      <div class="field"><label>Stad / regio</label><input type="text" name="locatie" placeholder="Enschede" required></div>
+      <button type="submit" class="btn-signup">✓ Ja, ik doe mee als betatester →</button>
+      <div class="fine">Gratis · Geen verplichtingen · Jouw gegevens worden nooit gedeeld</div>
+    </form>
+  </div>
+</div>
+
+<!-- RESULTAAT NEE -->
+<div class="result-no" id="result-no">
+  <div class="result-icon">👍</div>
+  <div class="result-title">Bedankt voor je tijd!</div>
+  <div class="result-text">
+    We waarderen je eerlijkheid. Wil je toch op de hoogte blijven van Obuild? Laat je email achter en we houden je op de hoogte.
+  </div>
+  <div class="signup-form">
+    <div class="signup-title">Op de hoogte blijven?</div>
+    <form name="obuild-interesse" method="POST" data-netlify="true" onsubmit="handleSignup(event)">
+      <input type="hidden" name="form-name" value="obuild-interesse"/>
+      <input type="hidden" name="uren-per-week" id="h-s1b">
+      <input type="hidden" name="inkoop-locatie" id="h-s2b">
+      <input type="hidden" name="materiaalkosten-week" id="h-s3b">
+      <input type="hidden" name="grootste-irritatie" id="h-s4b">
+      <input type="hidden" name="wil-obuild-gebruiken" id="h-s5b">
+      <div class="field"><label>E-mailadres</label><input type="email" name="email" placeholder="jan@bedrijf.nl" required></div>
+      <button type="submit" class="btn-signup" style="background:var(--dark);color:#fff">Op de hoogte blijven →</button>
+    </form>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="success" id="success">
+  <div class="success-icon">✓</div>
+  <div class="success-title">Je staat op de lijst!</div>
+  <div class="success-sub">We nemen binnenkort contact met je op.<br>Welkom bij Obuild! 🎉<br><br>ORDER · PICK · DELIVER · BUILD</div>
+</div>
+
+<script>
+let answers = {};
+let finalYes = false;
+const totalSteps = 5;
+
+function select(btn, step) {
+  btn.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[step] = btn.textContent;
+  document.getElementById('next-' + step.replace('s','')).disabled = false;
+}
+
+function selectFinal(btn, isYes) {
+  btn.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+  finalYes = isYes;
+  answers['s5'] = btn.textContent;
+  document.getElementById('next-5').disabled = false;
+}
+
+function fillHiddenFields() {
+  const map = {
+    's1': ['h-s1', 'h-s1b'],
+    's2': ['h-s2', 'h-s2b'],
+    's3': ['h-s3', 'h-s3b'],
+    's4': ['h-s4', 'h-s4b'],
+    's5': ['h-s5', 'h-s5b'],
+  };
+  for (const [key, ids] of Object.entries(map)) {
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = answers[key] || '';
+    });
+  }
+}
+
+function nextStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+  const pct = ((n-1) / totalSteps * 100);
+  document.getElementById('progress').style.width = pct + '%';
+  window.scrollTo(0,0);
+}
+
+function showResult() {
+  fillHiddenFields();
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('progress').style.width = '100%';
+  if (finalYes) {
+    document.getElementById('result-yes').style.display = 'block';
+  } else {
+    document.getElementById('result-no').style.display = 'block';
+  }
+  window.scrollTo(0,0);
+}
+
+function handleSignup(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.textContent = 'Aanmelden...';
+  btn.disabled = true;
+
+  fetch('/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams(new FormData(e.target)).toString()
+  })
+  .then(() => {
+    document.getElementById('result-yes').style.display = 'none';
+    document.getElementById('result-no').style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+    window.scrollTo(0,0);
+  })
+  .catch(() => {
+    btn.textContent = 'Probeer opnieuw';
+    btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>
