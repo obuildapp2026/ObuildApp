@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Obuild — Beta Vragenlijst</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--y:#F7B500;--dark:#1C1F23;--bg:#F2F0EB;--white:#fff;--muted:#8A8880;--line:#E0DDD6;--p:20px}
+body{background:var(--dark);color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.nav-logo{font-size:1.3rem;font-weight:800;color:#fff}
+.nav-logo span{color:var(--y)}
+
+.hero{padding:32px var(--p) 24px;background:var(--dark)}
+.hero-tag{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--y);margin-bottom:12px}
+.hero h1{font-size:1.8rem;font-weight:800;line-height:1.1;margin-bottom:10px}
+.hero h1 em{font-style:normal;color:var(--y)}
+.hero p{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:20px}
+
+.beta-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(247,181,0,0.12);border:1px solid rgba(247,181,0,0.3);padding:10px 16px;margin-bottom:8px}
+.beta-badge-text{font-size:0.8rem;color:var(--y);font-weight:600}
+
+/* Progress */
+.progress-wrap{padding:0 var(--p);background:var(--dark);padding-bottom:20px}
+.progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-label{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+.progress-num{font-size:0.7rem;font-weight:700;color:var(--y)}
+.progress-bar{height:3px;background:rgba(255,255,255,0.08);border-radius:2px}
+.progress-fill{height:100%;background:var(--y);border-radius:2px;transition:width .4s ease}
+
+/* Form */
+.form-wrap{padding:24px var(--p);max-width:600px;margin:0 auto}
+.step{display:none}
+.step.active{display:block}
+
+.q-num{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--y);margin-bottom:8px}
+.q-text{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.4}
+.q-sub{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:20px;line-height:1.5}
+
+.options{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.option{background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);padding:14px 16px;cursor:pointer;font-size:0.95rem;color:rgba(255,255,255,0.7);text-align:left;transition:all .15s;display:flex;align-items:center;gap:12px}
+.option:hover{border-color:rgba(247,181,0,0.4);background:rgba(247,181,0,0.06);color:#fff}
+.option.selected{border-color:var(--y);background:rgba(247,181,0,0.1);color:#fff;font-weight:600}
+.option-dot{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.option.selected .option-dot{background:var(--y);border-color:var(--y)}
+.option.selected .option-dot::after{content:'✓';font-size:10px;color:var(--dark);font-weight:800}
+
+.btn-next{width:100%;padding:16px;background:var(--y);color:var(--dark);font-size:1rem;font-weight:700;border:none;cursor:pointer;margin-bottom:8px;transition:opacity .2s}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed}
+.btn-back{width:100%;padding:12px;background:transparent;color:rgba(255,255,255,0.3);font-size:0.85rem;border:none;cursor:pointer}
+
+/* Signup */
+.signup-wrap{padding:24px var(--p);max-width:600px;margin:0 auto;display:none}
+.signup-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:6px}
+.signup-sub{font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:24px;line-height:1.6}
+.highlight-box{background:rgba(247,181,0,0.1);border:1px solid rgba(247,181,0,0.3);padding:16px;margin-bottom:24px}
+.highlight-text{font-size:0.88rem;color:var(--y);line-height:1.6}
+.field{margin-bottom:12px}
+.field label{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:5px}
+.field input,.field select{width:100%;padding:13px 14px;font-size:0.95rem;font-weight:500;color:#fff;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);outline:none;font-family:inherit;-webkit-appearance:none;appearance:none;border-radius:0}
+.field input:focus,.field select:focus{border-color:var(--y);background:rgba(247,181,0,0.06)}
+.field select option{background:var(--dark);color:#fff}
+.btn-signup{width:100%;padding:16px;background:var(--y);color:var(--dark);font-size:1rem;font-weight:700;border:none;cursor:pointer;margin-top:8px}
+.form-fine{font-size:0.6rem;color:rgba(255,255,255,0.2);text-align:center;margin-top:10px;line-height:1.7}
+
+/* No */
+.no-wrap{padding:24px var(--p);max-width:600px;margin:0 auto;display:none;text-align:center}
+.no-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:8px}
+.no-sub{font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:24px;line-height:1.6}
+
+/* Success */
+.success{display:none;padding:64px var(--p);text-align:center;max-width:600px;margin:0 auto}
+.success-icon{width:72px;height:72px;background:var(--y);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 20px}
+.success-title{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:8px}
+.success-sub{font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.8}
+</style>
+</head>
+<body>
+
+<nav>
+  <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+    <circle cx="50" cy="50" r="46" fill="#F7B500"/>
+    <circle cx="50" cy="50" r="28" fill="white"/>
+    <rect x="44" y="4" width="12" height="20" fill="#1C1F23"/>
+    <rect x="44" y="76" width="12" height="20" fill="#1C1F23"/>
+    <rect x="4" y="44" width="20" height="12" fill="#1C1F23"/>
+    <rect x="76" y="44" width="20" height="12" fill="#1C1F23"/>
+    <path d="M36 63 L58 41" stroke="#1C1F23" stroke-width="7" stroke-linecap="round"/>
+    <path d="M46 41 L58 41 L58 53" stroke="#1C1F23" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>
+  <span class="nav-logo"><span>o</span>build</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Beta programma · 30 plekken</div>
+  <h1>Herken jij dit<br><em>als vakman?</em></h1>
+  <p>Ik ontwikkel een tool waarmee je via een foto van je werktekening direct je materiaallijst krijgt, de volgende dag besteld hebt, en je administratie automatisch bijhoudt.</p>
+  <div class="beta-badge">
+    <span style="font-size:1.2rem">🎯</span>
+    <span class="beta-badge-text">Beta-gebruikers betalen 50% minder — slechts 4% opslag</span>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-info">
+    <span class="progress-label">Voortgang</span>
+    <span class="progress-num" id="prog-num">Vraag 1 van 7</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+
+<div class="form-wrap">
+
+  <!-- Vraag 1 -->
+  <div class="step active" id="step-1">
+    <div class="q-num">Vraag 1 van 7</div>
+    <div class="q-text">Hoeveel tijd kost het je om materialen te berekenen en te bestellen?</div>
+    <div class="q-sub">Per klus of per week — wat is realistisch voor jou?</div>
+    <div class="options">
+      <button class="option" onclick="pick(this,'s1')"><div class="option-dot"></div>Minder dan 30 minuten</button>
+      <button class="option" onclick="pick(this,'s1')"><div class="option-dot"></div>30 tot 60 minuten</button>
+      <button class="option" onclick="pick(this,'s1')"><div class="option-dot"></div>1 tot 2 uur</button>
+      <button class="option" onclick="pick(this,'s1')"><div class="option-dot"></div>Meer dan 2 uur</button>
+    </div>
+    <button class="btn-next" id="n1" disabled onclick="go(2)">Volgende →</button>
+  </div>
+
+  <!-- Vraag 2 -->
+  <div class="step" id="step-2">
+    <div class="q-num">Vraag 2 van 7</div>
+    <div class="q-text">Wat is je grootste frustratie bij materialen bestellen?</div>
+    <div class="q-sub">Meerdere antwoorden mogelijk.</div>
+    <div class="options">
+      <button class="option multi" onclick="pickMulti(this,'s2')"><div class="option-dot"></div>Te veel tijd kwijt aan berekeningen</button>
+      <button class="option multi" onclick="pickMulti(this,'s2')"><div class="option-dot"></div>Verkeerde hoeveelheden besteld (te veel/te weinig)</button>
+      <button class="option multi" onclick="pickMulti(this,'s2')"><div class="option-dot"></div>Gedoe met meerdere leveranciers</button>
+      <button class="option multi" onclick="pickMulti(this,'s2')"><div class="option-dot"></div>Wachten op levering</button>
+      <button class="option multi" onclick="pickMulti(this,'s2')"><div class="option-dot"></div>Prijzen vergelijken kost te veel tijd</button>
+    </div>
+    <button class="btn-next" id="n2" disabled onclick="go(3)">Volgende →</button>
+    <button class="btn-back" onclick="go(1)">← Terug</button>
+  </div>
+
+  <!-- Vraag 3 -->
+  <div class="step" id="step-3">
+    <div class="q-num">Vraag 3 van 7</div>
+    <div class="q-text">Hoeveel tijd ben je wekelijks kwijt aan administratie?</div>
+    <div class="q-sub">Denk aan facturen, bonnetjes, offertes en BTW.</div>
+    <div class="options">
+      <button class="option" onclick="pick(this,'s3')"><div class="option-dot"></div>Minder dan 1 uur</button>
+      <button class="option" onclick="pick(this,'s3')"><div class="option-dot"></div>1 tot 2 uur</button>
+      <button class="option" onclick="pick(this,'s3')"><div class="option-dot"></div>2 tot 4 uur</button>
+      <button class="option" onclick="pick(this,'s3')"><div class="option-dot"></div>Meer dan 4 uur</button>
+    </div>
+    <button class="btn-next" id="n3" disabled onclick="go(4)">Volgende →</button>
+    <button class="btn-back" onclick="go(2)">← Terug</button>
+  </div>
+
+  <!-- Vraag 4 -->
+  <div class="step" id="step-4">
+    <div class="q-num">Vraag 4 van 7</div>
+    <div class="q-text">Wat kost je het meeste tijd in je administratie?</div>
+    <div class="q-sub">Meerdere antwoorden mogelijk.</div>
+    <div class="options">
+      <button class="option multi" onclick="pickMulti(this,'s4')"><div class="option-dot"></div>Facturen verwerken</button>
+      <button class="option multi" onclick="pickMulti(this,'s4')"><div class="option-dot"></div>Bonnetjes bijhouden</button>
+      <button class="option multi" onclick="pickMulti(this,'s4')"><div class="option-dot"></div>BTW-aangifte voorbereiding</button>
+      <button class="option multi" onclick="pickMulti(this,'s4')"><div class="option-dot"></div>Offertes maken voor klanten</button>
+      <button class="option multi" onclick="pickMulti(this,'s4')"><div class="option-dot"></div>Alles bijhouden wat ik heb besteld</button>
+    </div>
+    <button class="btn-next" id="n4" disabled onclick="go(5)">Volgende →</button>
+    <button class="btn-back" onclick="go(3)">← Terug</button>
+  </div>
+
+  <!-- Vraag 5 -->
+  <div class="step" id="step-5">
+    <div class="q-num">Vraag 5 van 7</div>
+    <div class="q-text">Zou je een app gebruiken die bestellen én administratie automatisch voor je regelt?</div>
+    <div class="q-sub">Foto in → materiaallijst → bestelling → administratie bijgehouden.</div>
+    <div class="options">
+      <button class="option" onclick="pick(this,'s5')"><div class="option-dot"></div>Ja, direct</button>
+      <button class="option" onclick="pick(this,'s5')"><div class="option-dot"></div>Ja, als het goed werkt</button>
+      <button class="option" onclick="pick(this,'s5')"><div class="option-dot"></div>Twijfel</button>
+      <button class="option" onclick="pick(this,'s5')"><div class="option-dot"></div>Nee</button>
+    </div>
+    <button class="btn-next" id="n5" disabled onclick="go(6)">Volgende →</button>
+    <button class="btn-back" onclick="go(4)">← Terug</button>
+  </div>
+
+  <!-- Vraag 6 -->
+  <div class="step" id="step-6">
+    <div class="q-num">Vraag 6 van 7</div>
+    <div class="q-text">Een opslag van 8% op de inkoopprijs voor sameday levering en automatische administratie — acceptabel?</div>
+    <div class="q-sub">Je bespaart gemiddeld 25-35% op retailprijzen. De opslag is bovenop de groothandelsprijs.</div>
+    <div class="options">
+      <button class="option" onclick="pick(this,'s6')"><div class="option-dot"></div>Ja, geen probleem</button>
+      <button class="option" onclick="pick(this,'s6')"><div class="option-dot"></div>Ja, als de service klopt</button>
+      <button class="option" onclick="pick(this,'s6')"><div class="option-dot"></div>Te duur</button>
+      <button class="option" onclick="pick(this,'s6')"><div class="option-dot"></div>Hangt af van het product</button>
+    </div>
+    <button class="btn-next" id="n6" disabled onclick="go(7)">Volgende →</button>
+    <button class="btn-back" onclick="go(5)">← Terug</button>
+  </div>
+
+  <!-- Vraag 7 -->
+  <div class="step" id="step-7">
+    <div class="q-num">Vraag 7 van 7</div>
+    <div class="q-text">Beta-gebruikers betalen slechts 4% opslag. Doe je mee?</div>
+    <div class="q-sub">30 plekken beschikbaar. Beta-gebruikers krijgen levenslang 50% korting op de standaard opslag.</div>
+    <div class="options">
+      <button class="option" onclick="pickFinal(this, true)"><div class="option-dot"></div>Ja, ik wil meedoen! 🎯</button>
+      <button class="option" onclick="pickFinal(this, true)"><div class="option-dot"></div>Misschien, vertel me meer</button>
+      <button class="option" onclick="pickFinal(this, false)"><div class="option-dot"></div>Nee, bedankt</button>
+    </div>
+    <button class="btn-next" id="n7" disabled onclick="showResult()">Bekijk resultaat →</button>
+    <button class="btn-back" onclick="go(6)">← Terug</button>
+  </div>
+
+</div>
+
+<!-- JA — Signup -->
+<div class="signup-wrap" id="signup-wrap">
+  <div class="signup-title">🎉 Welkom bij de beta!</div>
+  <div class="signup-sub">Je bent er bijna. Vul je gegevens in en we nemen snel contact op.</div>
+  <div class="highlight-box">
+    <div class="highlight-text">✓ Beta-prijs: slechts 4% opslag (normaal 8%)<br>✓ Levenslang 50% korting<br>✓ Jij helpt Obuild beter maken<br>✓ Des te meer vakmensen meedoen — des te groter de korting voor iedereen</div>
+  </div>
+  <form name="obuild-beta" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="handleSignup(event)">
+    <input type="hidden" name="form-name" value="obuild-beta"/>
+    <input type="hidden" name="tijd-materialen" id="h1">
+    <input type="hidden" name="frustratie-bestellen" id="h2">
+    <input type="hidden" name="tijd-admin" id="h3">
+    <input type="hidden" name="frustratie-admin" id="h4">
+    <input type="hidden" name="wil-app" id="h5">
+    <input type="hidden" name="opslag-acceptabel" id="h6">
+    <input type="hidden" name="beta-deelname" id="h7">
+    <p style="display:none"><input name="bot-field"/></p>
+    <div class="field"><label>Naam</label><input type="text" name="naam" placeholder="Jan de Vries" required></div>
+    <div class="field"><label>Beroep</label>
+      <select name="beroep" required>
+        <option value="" disabled selected>Kies je beroep</option>
+        <option>Stucadoor</option><option>Timmerman</option><option>Loodgieter</option>
+        <option>Elektricien</option><option>Metselaar</option><option>Glaszetter</option>
+        <option>Dakdekker</option><option>Schilder</option><option>CV-monteur</option>
+        <option>Tegelzetter</option><option>Ventilatiemonteur</option>
+        <option>Kunststof kozijnen monteur</option><option>Vloerlegger</option>
+        <option>Isolatiemonteur</option><option>Zonnepaneleninstallateur</option>
+        <option>Stratenmaker</option><option>Anders</option>
+      </select>
+    </div>
+    <div class="field"><label>Telefoonnummer</label><input type="tel" name="telefoon" placeholder="+31 6 12345678" required></div>
+    <div class="field"><label>E-mailadres</label><input type="email" name="email" placeholder="jan@bedrijf.nl" required></div>
+    <div class="field"><label>Stad / regio</label><input type="text" name="locatie" placeholder="Enschede" required></div>
+    <button type="submit" class="btn-signup" id="signup-btn">✓ Ja, ik doe mee als betatester →</button>
+    <div class="form-fine">Gratis aanmelden · Geen verplichtingen · Jouw gegevens worden nooit gedeeld<br>Des te meer vakmensen zich aansluiten — des te groter de korting voor iedereen</div>
+  </form>
+</div>
+
+<!-- NEE -->
+<div class="no-wrap" id="no-wrap">
+  <div class="no-title">Bedankt voor je tijd! 👍</div>
+  <div class="no-sub">We waarderen je eerlijkheid. Wil je toch op de hoogte blijven van Obuild?</div>
+  <form name="obuild-interesse" method="POST" data-netlify="true" onsubmit="handleSignup(event)">
+    <input type="hidden" name="form-name" value="obuild-interesse"/>
+    <div class="field"><label>E-mailadres</label><input type="email" name="email" placeholder="jan@bedrijf.nl" required></div>
+    <button type="submit" class="btn-signup" style="background:rgba(255,255,255,0.1);color:#fff">Op de hoogte blijven →</button>
+  </form>
+</div>
+
+<!-- SUCCESS -->
+<div class="success" id="success">
+  <div class="success-icon">✓</div>
+  <div class="success-title">Je staat op de lijst!</div>
+  <div class="success-sub">We nemen binnenkort contact op.<br>Welkom bij Obuild! 🎉<br><br>ORDER · PICK · DELIVER · BUILD<br><br><small style="color:rgba(255,255,255,0.2)">Deel de link met collega's — hoe meer vakmensen meedoen, des te groter de korting voor iedereen.</small></div>
+</div>
+
+<script>
+var answers = {};
+var finalYes = false;
+var total = 7;
+
+function pickMulti(btn, step) {
+  btn.classList.toggle('selected');
+  var selected = document.querySelectorAll('#step-'+step.replace('s','')+' .option.multi.selected');
+  var nextNum = step.replace('s','');
+  var nextBtn = document.getElementById('n'+nextNum);
+  if(nextBtn) nextBtn.disabled = selected.length === 0;
+  var vals = [];
+  selected.forEach(function(o){ vals.push(o.textContent.trim()); });
+  answers[step] = vals.join(', ');
+}
+
+function pick(btn, step) {
+  btn.closest('.options').querySelectorAll('.option').forEach(function(o){o.classList.remove('selected')});
+  btn.classList.add('selected');
+  answers[step] = btn.textContent.trim();
+  var num = step.replace('s','');
+  var nextBtn = document.getElementById('n'+num);
+  if(nextBtn) nextBtn.disabled = false;
+}
+
+function pickFinal(btn, isYes) {
+  btn.closest('.options').querySelectorAll('.option').forEach(function(o){o.classList.remove('selected')});
+  btn.classList.add('selected');
+  finalYes = isYes;
+  answers['s7'] = btn.textContent.trim();
+  document.getElementById('n7').disabled = false;
+}
+
+function go(n) {
+  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active')});
+  var step = document.getElementById('step-'+n);
+  if(step) step.classList.add('active');
+  var pct = ((n-1)/total*100);
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-num').textContent = 'Vraag '+n+' van '+total;
+  window.scrollTo(0,0);
+}
+
+function fillHidden() {
+  var map = {'s1':'h1','s2':'h2','s3':'h3','s4':'h4','s5':'h5','s6':'h6','s7':'h7'};
+  for(var k in map){
+    var el = document.getElementById(map[k]);
+    if(el) el.value = answers[k]||'';
+  }
+}
+
+function showResult() {
+  fillHidden();
+  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active')});
+  document.getElementById('prog-fill').style.width = '100%';
+  document.getElementById('prog-num').textContent = 'Klaar!';
+  if(finalYes){
+    document.getElementById('signup-wrap').style.display='block';
+  } else {
+    document.getElementById('no-wrap').style.display='block';
+  }
+  window.scrollTo(0,0);
+}
+
+function handleSignup(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  btn.textContent = 'Aanmelden...';
+  btn.disabled = true;
+  fetch('/', {
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body: new URLSearchParams(new FormData(e.target)).toString()
+  })
+  .then(function(){
+    document.getElementById('signup-wrap').style.display='none';
+    document.getElementById('no-wrap').style.display='none';
+    document.getElementById('success').style.display='block';
+    window.scrollTo(0,0);
+  })
+  .catch(function(){
+    btn.textContent='Probeer opnieuw';
+    btn.disabled=false;
+  });
+}
+</script>
+</body>
+</html>
