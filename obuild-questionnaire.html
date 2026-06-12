@@ -22,7 +22,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
 .beta-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(247,181,0,0.12);border:1px solid rgba(247,181,0,0.3);padding:10px 16px;margin-bottom:8px}
 .beta-badge-text{font-size:0.8rem;color:var(--y);font-weight:600}
 
-/* Progress */
 .progress-wrap{padding:0 var(--p);background:var(--dark);padding-bottom:20px}
 .progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .progress-label{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
@@ -30,7 +29,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
 .progress-bar{height:3px;background:rgba(255,255,255,0.08);border-radius:2px}
 .progress-fill{height:100%;background:var(--y);border-radius:2px;transition:width .4s ease}
 
-/* Form */
 .form-wrap{padding:24px var(--p);max-width:600px;margin:0 auto}
 .step{display:none}
 .step.active{display:block}
@@ -51,7 +49,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
 .btn-next:disabled{opacity:0.3;cursor:not-allowed}
 .btn-back{width:100%;padding:12px;background:transparent;color:rgba(255,255,255,0.3);font-size:0.85rem;border:none;cursor:pointer}
 
-/* Signup */
 .signup-wrap{padding:24px var(--p);max-width:600px;margin:0 auto;display:none}
 .signup-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:6px}
 .signup-sub{font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:24px;line-height:1.6}
@@ -65,12 +62,10 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
 .btn-signup{width:100%;padding:16px;background:var(--y);color:var(--dark);font-size:1rem;font-weight:700;border:none;cursor:pointer;margin-top:8px}
 .form-fine{font-size:0.6rem;color:rgba(255,255,255,0.2);text-align:center;margin-top:10px;line-height:1.7}
 
-/* No */
 .no-wrap{padding:24px var(--p);max-width:600px;margin:0 auto;display:none;text-align:center}
 .no-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:8px}
 .no-sub{font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:24px;line-height:1.6}
 
-/* Success */
 .success{display:none;padding:64px var(--p);text-align:center;max-width:600px;margin:0 auto}
 .success-icon{width:72px;height:72px;background:var(--y);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 20px}
 .success-title{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:8px}
@@ -113,7 +108,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
 
 <div class="form-wrap">
 
-  <!-- Vraag 1 -->
   <div class="step active" id="step-1">
     <div class="q-num">Vraag 1 van 7</div>
     <div class="q-text">Hoeveel tijd kost het je om materialen te berekenen en te bestellen?</div>
@@ -127,7 +121,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
     <button class="btn-next" id="n1" disabled onclick="go(2)">Volgende →</button>
   </div>
 
-  <!-- Vraag 2 -->
   <div class="step" id="step-2">
     <div class="q-num">Vraag 2 van 7</div>
     <div class="q-text">Wat is je grootste frustratie bij materialen bestellen?</div>
@@ -143,7 +136,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
     <button class="btn-back" onclick="go(1)">← Terug</button>
   </div>
 
-  <!-- Vraag 3 -->
   <div class="step" id="step-3">
     <div class="q-num">Vraag 3 van 7</div>
     <div class="q-text">Hoeveel tijd ben je wekelijks kwijt aan administratie?</div>
@@ -158,7 +150,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
     <button class="btn-back" onclick="go(2)">← Terug</button>
   </div>
 
-  <!-- Vraag 4 -->
   <div class="step" id="step-4">
     <div class="q-num">Vraag 4 van 7</div>
     <div class="q-text">Wat kost je het meeste tijd in je administratie?</div>
@@ -174,7 +165,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
     <button class="btn-back" onclick="go(3)">← Terug</button>
   </div>
 
-  <!-- Vraag 5 -->
   <div class="step" id="step-5">
     <div class="q-num">Vraag 5 van 7</div>
     <div class="q-text">Zou je een app gebruiken die bestellen én administratie automatisch voor je regelt?</div>
@@ -189,7 +179,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
     <button class="btn-back" onclick="go(4)">← Terug</button>
   </div>
 
-  <!-- Vraag 6 -->
   <div class="step" id="step-6">
     <div class="q-num">Vraag 6 van 7</div>
     <div class="q-text">Een opslag van 8% op de inkoopprijs voor next day levering en automatische administratie — acceptabel?</div>
@@ -204,7 +193,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
     <button class="btn-back" onclick="go(5)">← Terug</button>
   </div>
 
-  <!-- Vraag 7 -->
   <div class="step" id="step-7">
     <div class="q-num">Vraag 7 van 7</div>
     <div class="q-text">Beta-gebruikers betalen slechts 4% opslag. Doe je mee?</div>
@@ -227,8 +215,8 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
   <div class="highlight-box">
     <div class="highlight-text">✓ Beta-prijs: slechts 4% opslag (normaal 8%)<br>✓ Levenslang 50% korting<br>✓ Jij helpt Obuild beter maken<br>✓ Des te meer vakmensen meedoen — des te groter de korting voor iedereen</div>
   </div>
-  <form name="obuild-beta" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="handleSignup(event)">
-    <input type="hidden" name="form-name" value="obuild-beta"/>
+  <form id="signup-form" onsubmit="handleSignup(event, 'signup')">
+    <input type="hidden" name="_subject" value="Nieuwe oBuild beta aanmelding!">
     <input type="hidden" name="tijd-materialen" id="h1">
     <input type="hidden" name="frustratie-bestellen" id="h2">
     <input type="hidden" name="tijd-admin" id="h3">
@@ -236,7 +224,6 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
     <input type="hidden" name="wil-app" id="h5">
     <input type="hidden" name="opslag-acceptabel" id="h6">
     <input type="hidden" name="beta-deelname" id="h7">
-    <p style="display:none"><input name="bot-field"/></p>
     <div class="field"><label>Naam</label><input type="text" name="naam" placeholder="Jan de Vries" required></div>
     <div class="field"><label>Beroep</label>
       <select name="beroep" required>
@@ -262,8 +249,8 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
 <div class="no-wrap" id="no-wrap">
   <div class="no-title">Bedankt voor je tijd! 👍</div>
   <div class="no-sub">We waarderen je eerlijkheid. Wil je toch op de hoogte blijven van Obuild?</div>
-  <form name="obuild-interesse" method="POST" data-netlify="true" onsubmit="handleSignup(event)">
-    <input type="hidden" name="form-name" value="obuild-interesse"/>
+  <form id="no-form" onsubmit="handleSignup(event, 'interesse')">
+    <input type="hidden" name="_subject" value="oBuild — interesse (geen beta)">
     <div class="field"><label>E-mailadres</label><input type="email" name="email" placeholder="jan@bedrijf.nl" required></div>
     <button type="submit" class="btn-signup" style="background:rgba(255,255,255,0.1);color:#fff">Op de hoogte blijven →</button>
   </form>
@@ -340,21 +327,33 @@ function showResult() {
   window.scrollTo(0,0);
 }
 
-function handleSignup(e) {
+function handleSignup(e, type) {
   e.preventDefault();
   var btn = e.target.querySelector('button[type="submit"]');
   btn.textContent = 'Aanmelden...';
   btn.disabled = true;
-  fetch('/', {
-    method:'POST',
-    headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body: new URLSearchParams(new FormData(e.target)).toString()
+
+  var endpoint = type === 'signup'
+    ? 'https://formspree.io/f/mykannzb'
+    : 'https://formspree.io/f/mykannzb';
+
+  var data = new FormData(e.target);
+
+  fetch(endpoint, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
   })
-  .then(function(){
-    document.getElementById('signup-wrap').style.display='none';
-    document.getElementById('no-wrap').style.display='none';
-    document.getElementById('success').style.display='block';
-    window.scrollTo(0,0);
+  .then(function(response) {
+    if(response.ok) {
+      document.getElementById('signup-wrap').style.display='none';
+      document.getElementById('no-wrap').style.display='none';
+      document.getElementById('success').style.display='block';
+      window.scrollTo(0,0);
+    } else {
+      btn.textContent='Probeer opnieuw';
+      btn.disabled=false;
+    }
   })
   .catch(function(){
     btn.textContent='Probeer opnieuw';
