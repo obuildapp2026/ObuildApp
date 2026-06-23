@@ -49,6 +49,27 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
 .btn-next:disabled{opacity:0.3;cursor:not-allowed}
 .btn-back{width:100%;padding:12px;background:transparent;color:rgba(255,255,255,0.3);font-size:0.85rem;border:none;cursor:pointer}
 
+/* Meer info pagina */
+.meer-wrap{padding:24px var(--p);max-width:600px;margin:0 auto;display:none}
+.meer-title{font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:6px}
+.meer-sub{font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:28px;line-height:1.6}
+
+.stap-blok{margin-bottom:20px}
+.stap-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--y);margin-bottom:6px}
+.stap-text{font-size:0.95rem;color:#fff;line-height:1.6}
+
+.voordeel-box{background:rgba(247,181,0,0.08);border:1px solid rgba(247,181,0,0.25);padding:18px;margin:24px 0}
+.voordeel-item{font-size:0.9rem;color:rgba(255,255,255,0.85);line-height:1.8}
+.voordeel-item::before{content:'✓ ';color:var(--y);font-weight:700}
+
+.beta-box{background:rgba(247,181,0,0.12);border:1px solid rgba(247,181,0,0.4);padding:16px;margin-bottom:28px;text-align:center}
+.beta-box-title{font-size:1rem;font-weight:800;color:var(--y);margin-bottom:4px}
+.beta-box-sub{font-size:0.8rem;color:rgba(255,255,255,0.5);line-height:1.5}
+
+.btn-ja{width:100%;padding:16px;background:var(--y);color:var(--dark);font-size:1rem;font-weight:700;border:none;cursor:pointer;margin-bottom:10px}
+.btn-nee{width:100%;padding:12px;background:transparent;color:rgba(255,255,255,0.3);font-size:0.85rem;border:none;cursor:pointer}
+
+/* Signup */
 .signup-wrap{padding:24px var(--p);max-width:600px;margin:0 auto;display:none}
 .signup-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:6px}
 .signup-sub{font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:24px;line-height:1.6}
@@ -198,14 +219,47 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
     <div class="q-text">Beta-gebruikers betalen slechts 4% opslag. Doe je mee?</div>
     <div class="q-sub">Slechts 5 plekken per beroep beschikbaar. Beta-gebruikers krijgen levenslang 50% korting op de standaard opslag.</div>
     <div class="options">
-      <button class="option" onclick="pickFinal(this, true)"><div class="option-dot"></div>Ja, ik wil meedoen! 🎯</button>
-      <button class="option" onclick="pickFinal(this, true)"><div class="option-dot"></div>Misschien, vertel me meer</button>
-      <button class="option" onclick="pickFinal(this, false)"><div class="option-dot"></div>Nee, bedankt</button>
+      <button class="option" onclick="pickFinal(this, 'ja')"><div class="option-dot"></div>Ja, ik wil meedoen! 🎯</button>
+      <button class="option" onclick="pickFinal(this, 'meer')"><div class="option-dot"></div>Misschien, vertel me meer</button>
+      <button class="option" onclick="pickFinal(this, 'nee')"><div class="option-dot"></div>Nee, bedankt</button>
     </div>
     <button class="btn-next" id="n7" disabled onclick="showResult()">Bekijk resultaat →</button>
     <button class="btn-back" onclick="go(6)">← Terug</button>
   </div>
 
+</div>
+
+<!-- MEER INFO pagina -->
+<div class="meer-wrap" id="meer-wrap">
+  <div class="meer-title">Goed dat je meer wil weten 👇</div>
+  <div class="meer-sub">Hier is precies hoe oBuild werkt — en wat het jou oplevert.</div>
+
+  <div class="stap-blok">
+    <div class="stap-label">Hoe het werkt</div>
+    <div class="stap-text">
+      Je opent de app en spreekt in wat je nodig hebt, typt de afmetingen in, of maakt een foto van je werktekening. De AI berekent automatisch de juiste materiaalbehoefte en plaatst de bestelling. De materialen liggen de volgende dag klaar op een afhaalpunt bij jou in de buurt.
+    </div>
+  </div>
+
+  <div class="stap-blok">
+    <div class="stap-label">Wat het jou oplevert</div>
+    <div class="voordeel-box">
+      <div class="voordeel-item">Geen tijdverlies aan berekeningen — de app doet het</div>
+      <div class="voordeel-item">Goedkoper dan de bouwmarkt — groothandelsprijzen</div>
+      <div class="voordeel-item">Materialen volgende dag klaar bij een afhaalpunt</div>
+      <div class="voordeel-item">Offertes maken voor klanten in één druk op de knop</div>
+      <div class="voordeel-item">Administratie automatisch bijgehouden na afronding klus</div>
+      <div class="voordeel-item">Facturen, bonnetjes en BTW — allemaal geregeld</div>
+    </div>
+  </div>
+
+  <div class="beta-box">
+    <div class="beta-box-title">🎯 Beta-voordeel: slechts 4% opslag</div>
+    <div class="beta-box-sub">Normaal 8% — als beta-gebruiker betaal jij levenslang de helft.<br>Slechts 5 plekken per beroep beschikbaar.</div>
+  </div>
+
+  <button class="btn-ja" onclick="showSignup()">✓ Ja, ik doe mee als betatester →</button>
+  <button class="btn-nee" onclick="showNo()">Nee, toch niet voor mij</button>
 </div>
 
 <!-- JA — Signup -->
@@ -265,7 +319,7 @@ nav{background:var(--dark);padding:14px var(--p);display:flex;align-items:center
 
 <script>
 var answers = {};
-var finalYes = false;
+var finalKeuze = '';
 var total = 7;
 
 function pickMulti(btn, step) {
@@ -288,10 +342,10 @@ function pick(btn, step) {
   if(nextBtn) nextBtn.disabled = false;
 }
 
-function pickFinal(btn, isYes) {
+function pickFinal(btn, keuze) {
   btn.closest('.options').querySelectorAll('.option').forEach(function(o){o.classList.remove('selected')});
   btn.classList.add('selected');
-  finalYes = isYes;
+  finalKeuze = keuze;
   answers['s7'] = btn.textContent.trim();
   document.getElementById('n7').disabled = false;
 }
@@ -319,11 +373,26 @@ function showResult() {
   document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active')});
   document.getElementById('prog-fill').style.width = '100%';
   document.getElementById('prog-num').textContent = 'Klaar!';
-  if(finalYes){
+
+  if(finalKeuze === 'ja') {
     document.getElementById('signup-wrap').style.display='block';
+  } else if(finalKeuze === 'meer') {
+    document.getElementById('meer-wrap').style.display='block';
   } else {
     document.getElementById('no-wrap').style.display='block';
   }
+  window.scrollTo(0,0);
+}
+
+function showSignup() {
+  document.getElementById('meer-wrap').style.display='none';
+  document.getElementById('signup-wrap').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function showNo() {
+  document.getElementById('meer-wrap').style.display='none';
+  document.getElementById('no-wrap').style.display='block';
   window.scrollTo(0,0);
 }
 
@@ -333,13 +402,9 @@ function handleSignup(e, type) {
   btn.textContent = 'Aanmelden...';
   btn.disabled = true;
 
-  var endpoint = type === 'signup'
-    ? 'https://formspree.io/f/mykannzb'
-    : 'https://formspree.io/f/mykannzb';
-
   var data = new FormData(e.target);
 
-  fetch(endpoint, {
+  fetch('https://formspree.io/f/mykannzb', {
     method: 'POST',
     body: data,
     headers: { 'Accept': 'application/json' }
@@ -348,6 +413,7 @@ function handleSignup(e, type) {
     if(response.ok) {
       document.getElementById('signup-wrap').style.display='none';
       document.getElementById('no-wrap').style.display='none';
+      document.getElementById('meer-wrap').style.display='none';
       document.getElementById('success').style.display='block';
       window.scrollTo(0,0);
     } else {
