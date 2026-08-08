@@ -335,9 +335,8 @@ footer{background:var(--dark);padding:24px var(--p);border-top:1px solid rgba(25
       <div id="form-body">
         <div class="form-title">Meld je gratis aan</div>
         <div class="form-sub">Early access · Beperkte plekken</div>
-        <form name="obranto-aanmelding" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
-          <input type="hidden" name="form-name" value="obranto-aanmelding"/>
-          <p style="display:none"><input name="bot-field"/></p>
+        <form name="obranto-aanmelding" method="POST" onsubmit="handleSubmit(event)">
+          <p style="display:none"><input name="_gotcha"/></p>
           <div class="form-group"><label class="form-label">Naam</label><input type="text" name="naam" class="form-input" placeholder="Jan de Vries" required/></div>
           <div class="form-group"><label class="form-label">Beroep</label>
             <select name="beroep" class="form-select" required>
@@ -446,11 +445,17 @@ function handleSubmit(e){
   var btn=document.getElementById('f-btn');
   btn.textContent='Aanmelden...';
   btn.disabled=true;
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(e.target)).toString()})
-  .then(function(){
-    document.getElementById('form-body').style.display='none';
-    var s=document.getElementById('form-success');
-    s.style.display='flex';
+  fetch('https://formspree.io/f/mykannzb',{method:'POST',body:new FormData(e.target),headers:{'Accept':'application/json'}})
+  .then(function(response){
+    if(response.ok){
+      document.getElementById('form-body').style.display='none';
+      var s=document.getElementById('form-success');
+      s.style.display='flex';
+    } else {
+      btn.textContent='Aanmelden voor early access →';
+      btn.disabled=false;
+      alert('Er ging iets mis. Probeer het opnieuw.');
+    }
   })
   .catch(function(){
     btn.textContent='Aanmelden voor early access →';
