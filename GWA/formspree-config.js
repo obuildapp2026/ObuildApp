@@ -11,5 +11,5 @@
   so it is deliberately NOT fabricated here.
 */
 const FORMSPREE_CONFIG = {
-  endpoint: "https://formspree.io/f/VERVANG_DIT_MET_JOUW_FORM_ID"
+    endpoint: "https://formspree.io/f/mykannzb"
 };
